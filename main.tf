@@ -1,10 +1,10 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "eu-west-2"
 }
 
 #tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "example" {
-  bucket = "vj-tf-example-bucket-9999"
+  bucket = "vj-tf-example-bucket-test"
 }
 
 resource "aws_s3_bucket_ownership_controls" "example" {
