@@ -1,16 +1,13 @@
-name: Terraform CI/CD
+name: Terraform Cleanup
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight, adjust as needed
 
 jobs:
-  terraform:
-    name: 'Deploy Terraform Scripts'
+  terraform-cleanup:
+    name: 'Post Apply Cleanup'
     runs-on: ubuntu-latest
 
     env:
@@ -36,15 +33,8 @@ jobs:
       - name: 'Terraform Init'
         run: terraform init
 
-      - name: 'Terraform Format'
-        run: terraform fmt
+      - name: 'Terraform Plan Destroy'
+        run: terraform plan -destroy -out=tfplan-destroy
 
-      - name: 'Terraform Validate'
-        run: terraform validate
-
-      - name: 'Terraform Plan'
-        run: terraform plan -out=tfplan
-
-      - name: 'Terraform Apply'
-        if: github.ref == 'refs/heads/main'
-        run: terraform apply -auto-approve tfplan
+      - name: 'Terraform Apply Destroy'
+        run: terraform apply -auto-approve tfplan-destroy
