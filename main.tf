@@ -4,7 +4,7 @@ provider "aws" {
 
 #tfsec:ignore:aws-s3-enable-bucket-logging
 resource "aws_s3_bucket" "example" {
-  bucket = "vj-tf-example-bucket-for testing"
+  bucket = "vj-tf-example-bucket-for-testing"
 }
 
 resource "aws_s3_bucket_ownership_controls" "example" {
